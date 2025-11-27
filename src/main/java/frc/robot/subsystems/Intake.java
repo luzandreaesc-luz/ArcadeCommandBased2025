@@ -4,11 +4,32 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.SparkMaxConfig;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
+  private final SparkMax intakeMotor = new SparkMax(Constants.IntakePorts.kintakePortMotor, MotorType.kBrushed);
+
+  private final SparkMaxConfig intakeConfig = new SparkMaxConfig();
+
+
   /** Creates a new Intake. */
-  public Intake() {}
+  public Intake() {
+
+    intakeConfig.inverted(false).idleMode(IdleMode.kBrake).smartCurrentLimit(40);
+    intakeMotor.configure(intakeConfig, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters);
+  }
+
+
+  public void runIntake(double speed) {
+    intakeMotor.set(speed);
+  }
 
   @Override
   public void periodic() {

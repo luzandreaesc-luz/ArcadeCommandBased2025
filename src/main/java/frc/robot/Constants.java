@@ -16,6 +16,10 @@ public class Constants {
         
     }
 
+    public class IntakePorts   {
+        public static final int kintakePortMotor = 10;
+    }
+
 
 
 }
